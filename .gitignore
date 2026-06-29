@@ -1,0 +1,11 @@
+# Dépendances (réinstallées via npm install)
+node_modules/
+
+# Sortie de build (régénérée via npm run build)
+dist/
+
+# Divers
+*.log
+.DS_Store
+.env
+*.zip

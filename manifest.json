@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "Au Crible — lecture critique",
+  "version": "0.2.0",
+  "description": "Passe au crible l'article que tu lis : structure de l'argument, effets rhétoriques, solidité calibrée et points à vérifier. Méthode zététique. Jamais de verdict.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "au-crible@azrivo",
+      "strict_min_version": "121.0"
+    }
+  },
+  "icons": {
+    "48": "icons/crible.svg",
+    "96": "icons/crible.svg"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "optional_host_permissions": [
+    "*://*/*"
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Au Crible — ouvrir le panneau",
+    "default_icon": "icons/crible.svg"
+  },
+  "sidebar_action": {
+    "default_title": "Au Crible",
+    "default_panel": "sidebar.html",
+    "default_icon": "icons/crible.svg"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  }
+}

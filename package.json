@@ -1,0 +1,19 @@
+{
+  "name": "au-crible",
+  "version": "0.2.0",
+  "description": "Au Crible — lecture critique zététique des pages web (extension Firefox).",
+  "type": "module",
+  "scripts": {
+    "build": "node esbuild.config.mjs production",
+    "dev": "node esbuild.config.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@mozilla/readability": "0.5.0"
+  },
+  "devDependencies": {
+    "@types/firefox-webext-browser": "120.0.4",
+    "esbuild": "0.21.5",
+    "typescript": "5.4.5"
+  }
+}
