@@ -1,1 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="sidebar.css" />
+  <title>Au Crible — réglages</title>
+</head>
+<body class="options">
+  <main class="opt-wrap">
+    <h1>Réglages</h1>
+    <p class="hint">Tes clés restent sur ton appareil. Les requêtes partent directement de ton navigateur vers les fournisseurs que tu choisis — aucun serveur intermédiaire.</p>
 
+    <h2>Analyse (LLM)</h2>
+    <label class="field">
+      <span>URL de l'API <small>(endpoint compatible OpenAI)</small></span>
+      <input id="baseUrl" type="url" placeholder="https://api.groq.com/openai/v1" />
+    </label>
+    <label class="field">
+      <span>Clé API</span>
+      <input id="apiKey" type="password" placeholder="sk-…" autocomplete="off" />
+    </label>
+    <label class="field">
+      <span>Modèle</span>
+      <input id="model" type="text" placeholder="llama-3.3-70b-versatile" />
+    </label>
+
+    <h2>Vérification des sources (V2 — optionnel)</h2>
+    <label class="field">
+      <span>Clé de recherche Tavily <small>(palier gratuit, sans carte)</small></span>
+      <input id="tavilyApiKey" type="password" placeholder="tvly-…" autocomplete="off" />
+    </label>
+    <div class="row">
+      <label class="field">
+        <span>Seuil d'indépendance (Jaccard)</span>
+        <input id="jaccard" type="number" min="0.1" max="0.9" step="0.05" placeholder="0.5" />
+      </label>
+      <label class="field">
+        <span>Affirmations ancrables max</span>
+        <input id="maxClaims" type="number" min="1" max="5" step="1" placeholder="3" />
+      </label>
+    </div>
+
+    <h2>Général</h2>
+    <div class="row">
+      <label class="field">
+        <span>Langue de sortie</span>
+        <input id="language" type="text" placeholder="français" />
+      </label>
+      <label class="field">
+        <span>Profondeur</span>
+        <select id="depth">
+          <option value="rapide">Rapide</option>
+          <option value="approfondi">Approfondi</option>
+        </select>
+      </label>
+    </div>
+
+    <button id="save" class="primary" type="button">Enregistrer</button>
+    <div id="opt-status" class="status" hidden></div>
+
+    <section class="providers">
+      <h2>Fournisseurs LLM gratuits</h2>
+      <ul>
+        <li><b>Groq</b> — <code>https://api.groq.com/openai/v1</code> · <code>llama-3.3-70b-versatile</code></li>
+        <li><b>Google AI Studio</b> — <code>https://generativelanguage.googleapis.com/v1beta/openai</code> · <code>gemini-2.5-flash</code></li>
+        <li><b>OpenRouter</b> — <code>https://openrouter.ai/api/v1</code> · un modèle <code>…:free</code></li>
+      </ul>
+      <p class="tiny muted">Quota Tavily : ~3 requêtes par affirmation → le palier gratuit (~1000/mois) couvre environ 110 analyses ancrées par mois.</p>
+    </section>
+  </main>
+  <script src="options.js"></script>
+</body>
+</html>
