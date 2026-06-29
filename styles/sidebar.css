@@ -1,1 +1,174 @@
+/* Au Crible — feuille de style partagée (panneau + réglages).
+   Direction : "encre & papier" analytique. L'accent unique est l'encre (indigo
+   profond) ; la jauge de solidité se remplit par degré (pas de codage vert/rouge,
+   pour ne jamais suggérer un verdict bon/mauvais). Citations en monospace =
+   pièces à conviction extraites. */
 
+:root {
+  --paper: #faf8f3;
+  --paper-2: #f1ede3;
+  --ink: #1b1d24;
+  --muted: #6c6a63;
+  --line: #e3ded2;
+  --encre: #2f3aa3;
+  --encre-soft: #e7e8f6;
+  --major: #9a3412;
+  --mid: #92710d;
+  --radius: 10px;
+  --pad: 14px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #16171c;
+    --paper-2: #1f2128;
+    --ink: #e8e6df;
+    --muted: #9b988f;
+    --line: #2c2e36;
+    --encre: #9aa3f0;
+    --encre-soft: #23263a;
+    --major: #f0a079;
+    --mid: #d8b85a;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+/* --- En-tête --- */
+.bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px var(--pad);
+  border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; background: var(--paper); z-index: 2;
+}
+.brand { font-weight: 650; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px; }
+.mark {
+  width: 14px; height: 14px; display: inline-block; border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 2px, var(--encre) 2.4px 3px, transparent 3.4px),
+    radial-gradient(circle at 25% 30%, transparent 1.4px, var(--encre) 1.6px 2.1px, transparent 2.3px),
+    radial-gradient(circle at 75% 70%, transparent 1.4px, var(--encre) 1.6px 2.1px, transparent 2.3px);
+  border: 1.5px solid var(--encre);
+}
+.link {
+  background: none; border: none; color: var(--encre); cursor: pointer;
+  font-size: 13px; padding: 4px 6px; border-radius: 6px;
+}
+.link:hover { background: var(--encre-soft); }
+
+/* --- Contrôles --- */
+.controls { display: flex; gap: 8px; align-items: center; padding: var(--pad) var(--pad) 6px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg-btn {
+  background: var(--paper); border: none; color: var(--muted);
+  padding: 6px 10px; font-size: 13px; cursor: pointer;
+}
+.seg-btn.is-active { background: var(--encre-soft); color: var(--ink); font-weight: 600; }
+.primary {
+  margin-left: auto; background: var(--encre); color: #fff; border: none;
+  padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;
+}
+.primary:hover { filter: brightness(1.06); }
+.primary[disabled] { opacity: 0.55; cursor: default; }
+.hint { color: var(--muted); font-size: 12.5px; margin: 0 var(--pad) 8px; }
+.hint em { font-style: normal; color: var(--encre); }
+
+/* --- Statut --- */
+.status { margin: 4px var(--pad); padding: 9px 11px; border-radius: 8px; font-size: 13px; }
+.status--busy { background: var(--encre-soft); color: var(--ink); }
+.status--info { background: var(--encre-soft); color: var(--ink); }
+.status--error { background: #fbeae3; color: #7a2710; }
+@media (prefers-color-scheme: dark) { .status--error { background: #3a221a; color: #f0a079; } }
+
+/* --- Résultats --- */
+.result { padding: 4px var(--pad) var(--pad); display: flex; flex-direction: column; gap: 12px; }
+.doc-title { font-weight: 600; font-size: 13px; color: var(--muted); }
+.card { background: var(--paper-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; }
+.card-title { margin: 0 0 8px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 700; }
+.card p { margin: 0; }
+.muted { color: var(--muted); }
+.list { margin: 0; padding-left: 18px; }
+.list li { margin: 3px 0; }
+.band-label { font-weight: 650; margin-bottom: 4px; }
+
+/* Effets */
+.effet { padding: 9px 0; border-top: 1px dashed var(--line); }
+.effet:first-of-type { border-top: none; padding-top: 0; }
+.effet-head { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.effet-nom { font-weight: 600; }
+.tag { font-size: 11px; color: var(--encre); background: var(--encre-soft); padding: 1px 7px; border-radius: 20px; }
+.chip { font-size: 11px; padding: 1px 7px; border-radius: 20px; background: var(--line); color: var(--ink); }
+.chip--mid { background: color-mix(in srgb, var(--mid) 22%, transparent); color: var(--mid); }
+.chip--major { background: color-mix(in srgb, var(--major) 20%, transparent); color: var(--major); }
+.passage { margin: 6px 0; padding: 7px 10px; border-left: 3px solid var(--encre); background: var(--paper); font-family: var(--mono); font-size: 12.5px; }
+.effet-exp { margin: 4px 0 0; }
+
+/* Jauge de solidité (élément signature) */
+.meter { display: flex; gap: 4px; margin-bottom: 8px; }
+.meter-seg { flex: 1; height: 8px; border-radius: 3px; background: var(--line); }
+.meter-seg.is-on { background: var(--encre); }
+
+/* --- Pied --- */
+.foot { padding: 10px var(--pad); color: var(--muted); font-size: 11.5px; border-top: 1px solid var(--line); }
+
+/* --- Page réglages --- */
+.options { background: var(--paper); }
+.opt-wrap { max-width: 560px; margin: 0 auto; padding: 28px 22px; }
+.opt-wrap h1 { font-size: 20px; margin: 0 0 4px; }
+.opt-wrap h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); margin: 22px 0 8px; }
+.field { display: flex; flex-direction: column; gap: 5px; margin: 14px 0; }
+.field > span { font-weight: 600; font-size: 13px; }
+.field small { color: var(--muted); font-weight: 400; }
+.field input, .field select {
+  padding: 9px 10px; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--paper-2); color: var(--ink); font-size: 14px; font-family: var(--font);
+}
+.field input:focus, .field select:focus { outline: 2px solid var(--encre); outline-offset: 1px; }
+.row { display: flex; gap: 12px; }
+.row .field { flex: 1; }
+.providers ul { padding-left: 18px; color: var(--muted); font-size: 13px; }
+.providers code { font-family: var(--mono); font-size: 12px; background: var(--paper-2); padding: 1px 5px; border-radius: 5px; color: var(--ink); }
+.options .primary { margin-left: 0; }
+
+/* --- V2 : affirmations vérifiables & section Sources --- */
+.affn { padding: 9px 0; border-top: 1px dashed var(--line); }
+.affn:first-of-type { border-top: none; padding-top: 0; }
+.affn-text { margin: 0 0 6px; }
+.ground-btn {
+  background: var(--paper); color: var(--encre); border: 1px solid var(--encre);
+  padding: 5px 11px; border-radius: 7px; font-size: 12.5px; cursor: pointer; font-weight: 600;
+}
+.ground-btn:hover:not([disabled]) { background: var(--encre-soft); }
+.ground-btn[disabled] { opacity: 0.55; cursor: default; }
+.tiny { font-size: 11px; }
+.tiny.muted { color: var(--muted); }
+
+.ground { margin-top: 9px; padding: 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--paper); }
+.ground-band { font-weight: 700; }
+.ground-resume { color: var(--muted); font-size: 12.5px; margin: 2px 0 8px; }
+.flag {
+  font-size: 12px; padding: 6px 9px; border-radius: 7px; margin-bottom: 8px;
+  background: color-mix(in srgb, var(--mid) 16%, transparent); color: var(--mid);
+}
+
+.voix { padding: 8px 0; border-top: 1px dashed var(--line); }
+.voix-head { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.pos { font-size: 11px; padding: 1px 8px; border-radius: 20px; font-weight: 600; }
+.pos--pour { background: color-mix(in srgb, var(--encre) 16%, transparent); color: var(--encre); }
+.pos--contre { background: color-mix(in srgb, var(--major) 18%, transparent); color: var(--major); }
+.pos--nuance { background: var(--line); color: var(--ink); }
+.pos--hs { background: var(--line); color: var(--muted); }
+.voix-links { display: flex; flex-wrap: wrap; gap: 6px 10px; margin: 5px 0; }
+.src-link { font-size: 12px; color: var(--encre); text-decoration: none; font-family: var(--mono); }
+.src-link:hover { text-decoration: underline; }
