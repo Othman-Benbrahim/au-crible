@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="sidebar.css" />
+  <title>Au Crible</title>
+</head>
+<body>
+  <header class="bar">
+    <div class="brand"><span class="mark" aria-hidden="true"></span> Au&nbsp;Crible</div>
+    <button id="open-options" class="link" type="button" title="Réglages">Réglages</button>
+  </header>
+
+  <div class="controls">
+    <div class="seg" role="group" aria-label="Portée de l'analyse">
+      <button id="mode-article" class="seg-btn is-active" type="button" data-mode="article">Article</button>
+      <button id="mode-selection" class="seg-btn" type="button" data-mode="selection">Sélection</button>
+      <button id="mode-video" class="seg-btn" type="button" data-mode="video">Vidéo</button>
+    </div>
+    <button id="run" class="primary" type="button">Passer au crible</button>
+  </div>
+
+  <p class="hint">Analyse la <em>solidité</em> et la rhétorique du texte — jamais un verdict vrai/faux.</p>
+
+  <div id="status" class="status" hidden></div>
+  <main id="result" class="result"></main>
+
+  <footer class="foot">V1 · analyse par IA, sans vérification de sources · à recouper</footer>
+
+  <script src="sidebar.js"></script>
+</body>
+</html>
