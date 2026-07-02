@@ -49,8 +49,10 @@ async function handleAnalyze(mode: Mode): Promise<AnalyzeResponse> {
 
 async function handleGround(claim: AffirmationCle): Promise<GroundResponse> {
   const settings = await loadSettings();
-  if (!settings.tavilyApiKey) {
-    return { ok: false, error: "Ajoute ta clé de recherche (Tavily) dans les réglages pour vérifier les sources." };
+  const providerLabel = settings.searchProvider === "exa" ? "Exa" : "Tavily";
+  const keyManquante = settings.searchProvider === "exa" ? !settings.exaApiKey : !settings.tavilyApiKey;
+  if (keyManquante) {
+    return { ok: false, error: `Ajoute ta clé de recherche (${providerLabel}) dans les réglages pour vérifier les sources.` };
   }
   if (!settings.baseUrl || !settings.apiKey) {
     return { ok: false, error: "Configuration LLM incomplète (URL de l'API et clé)." };

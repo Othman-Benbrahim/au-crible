@@ -1,6 +1,7 @@
 // Types partagés — V1 (analyse) + V2 (ancrage par preuves).
 
 export type Profondeur = "rapide" | "approfondi";
+export type SearchProviderName = "tavily" | "exa";
 
 export interface Settings {
   apiKey: string;
@@ -9,14 +10,17 @@ export interface Settings {
   language: string;
   depth: Profondeur;
   // V2 — ancrage (BYOK, 2e clé)
-  tavilyApiKey: string;     // clé de recherche de l'utilisateur (palier gratuit)
+  searchProvider: SearchProviderName; // moteur de recherche : l'un OU l'autre
+  tavilyApiKey: string;     // clé Tavily (palier gratuit)
+  exaApiKey: string;        // clé Exa (palier gratuit, sans carte)
   jaccardThreshold: number; // seuil de quasi-doublon, défaut 0.5
   maxClaims: number;        // affirmations ancrables max, défaut 3
 }
 
 export const DEFAULT_SETTINGS: Settings = {
   apiKey: "", baseUrl: "", model: "", language: "français", depth: "rapide",
-  tavilyApiKey: "", jaccardThreshold: 0.5, maxClaims: 3,
+  searchProvider: "tavily", tavilyApiKey: "", exaApiKey: "",
+  jaccardThreshold: 0.5, maxClaims: 3,
 };
 
 // --- Analyse V1 (schéma étendu pour préparer l'ancrage) ---
