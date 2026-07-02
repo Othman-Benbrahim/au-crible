@@ -27,8 +27,19 @@
 
     <h2>Vérification des sources (V2 — optionnel)</h2>
     <label class="field">
-      <span>Clé de recherche Tavily <small>(palier gratuit, sans carte)</small></span>
+      <span>Moteur de recherche <small>(l'un OU l'autre)</small></span>
+      <select id="searchProvider">
+        <option value="tavily">Tavily</option>
+        <option value="exa">Exa</option>
+      </select>
+    </label>
+    <label class="field" data-provider="tavily">
+      <span>Clé Tavily <small>(palier gratuit, sans carte)</small></span>
       <input id="tavilyApiKey" type="password" placeholder="tvly-…" autocomplete="off" />
+    </label>
+    <label class="field" data-provider="exa">
+      <span>Clé Exa <small>(palier gratuit, sans carte)</small></span>
+      <input id="exaApiKey" type="password" placeholder="exa-…" autocomplete="off" />
     </label>
     <div class="row">
       <label class="field">
@@ -40,6 +51,7 @@
         <input id="maxClaims" type="number" min="1" max="5" step="1" placeholder="3" />
       </label>
     </div>
+    <p class="tiny muted" data-provider="exa">Exa renvoie des textes plus longs que Tavily : si des sources distinctes fusionnent à tort en une seule « voix », augmente légèrement le seuil Jaccard.</p>
 
     <h2>Général</h2>
     <div class="row">
@@ -66,7 +78,12 @@
         <li><b>Google AI Studio</b> — <code>https://generativelanguage.googleapis.com/v1beta/openai</code> · <code>gemini-2.5-flash</code></li>
         <li><b>OpenRouter</b> — <code>https://openrouter.ai/api/v1</code> · un modèle <code>…:free</code></li>
       </ul>
-      <p class="tiny muted">Quota Tavily : ~3 requêtes par affirmation → le palier gratuit (~1000/mois) couvre environ 110 analyses ancrées par mois.</p>
+      <h2>Moteurs de recherche gratuits</h2>
+      <ul>
+        <li><b>Tavily</b> — clé sur <code>app.tavily.com</code> · ~1000 requêtes/mois, sans carte</li>
+        <li><b>Exa</b> — clé sur <code>dashboard.exa.ai/api-keys</code> · ~1000 requêtes/mois, sans carte</li>
+      </ul>
+      <p class="tiny muted">~3 requêtes par affirmation → le palier gratuit couvre environ 110 analyses ancrées/mois, quel que soit le moteur.</p>
     </section>
   </main>
   <script src="options.js"></script>
