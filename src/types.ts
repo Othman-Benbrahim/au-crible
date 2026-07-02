@@ -15,12 +15,13 @@ export interface Settings {
   exaApiKey: string;        // clé Exa (palier gratuit, sans carte)
   jaccardThreshold: number; // seuil de quasi-doublon, défaut 0.5
   maxClaims: number;        // affirmations ancrables max, défaut 3
+  transcriptLangs: string[]; // langues de sous-titres préférées (mode vidéo)
 }
 
 export const DEFAULT_SETTINGS: Settings = {
   apiKey: "", baseUrl: "", model: "", language: "français", depth: "rapide",
   searchProvider: "tavily", tavilyApiKey: "", exaApiKey: "",
-  jaccardThreshold: 0.5, maxClaims: 3,
+  jaccardThreshold: 0.5, maxClaims: 3, transcriptLangs: ["fr", "en"],
 };
 
 // --- Analyse V1 (schéma étendu pour préparer l'ancrage) ---
@@ -123,3 +124,32 @@ export interface AnalyzeResponse {
   ok: boolean; analyse?: Analyse; meta?: { title: string; url: string; mode: Mode }; error?: string;
 }
 export interface GroundResponse { ok: boolean; result?: GroundingResult; error?: string }
+
+// --- Mode vidéo (YouTube) ---
+
+export interface TranscriptSegment {
+  start: number; // secondes
+  dur: number;
+  text: string;
+}
+
+export interface VideoSection {
+  id: string;
+  titre: string;
+  timestamp: number;              // secondes, pour le seek
+  points: string[];
+  affirmations_cles: AffirmationCle[]; // pour l'ancrage par nœud (réutilise groundClaim)
+}
+
+export interface VideoAnalysis {
+  videoId: string;
+  titre: string;
+  resume: string;
+  sections: VideoSection[];
+  transcriptPropre: { t: number; texte: string }[]; // paragraphes horodatés, nettoyés
+}
+
+// Messages du mode vidéo
+export interface VideoAnalyzeRequest { type: "VIDEO_ANALYZE" }
+export interface VideoAnalyzeResponse { ok: boolean; analysis?: VideoAnalysis; error?: string }
+export interface YtSeekRequest { type: "YT_SEEK"; seconds: number }

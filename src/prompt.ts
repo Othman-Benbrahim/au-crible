@@ -95,3 +95,45 @@ extrait : ${extrait}`;
   }).join("\n\n");
   return `AFFIRMATION :\n${affirmation}\n\nGRAPPES À CLASSER :\n${blocs}`;
 }
+
+// --- Mode vidéo : mise au propre du transcript + résumé/mindmap ---
+
+export function cleanupSystem(language: string): string {
+  return `Tu reçois un extrait de transcription automatique (sous-titres) d'une vidéo, souvent sans ponctuation et avec des scories.
+
+Nettoie-le :
+- ajoute ponctuation et majuscules, découpe en phrases et paragraphes lisibles ;
+- retire les hésitations (euh, hum), les répétitions involontaires et les tics de langage ;
+- corrige les erreurs évidentes de sous-titrage.
+
+Règles : ne change PAS le sens, n'ajoute AUCune information, ne résume pas. Reste fidèle aux propos. Réponds uniquement par le texte nettoyé, en ${language}, sans commentaire.`;
+}
+
+export function videoSystem(language: string): string {
+  return `Tu analyses la transcription horodatée d'une vidéo (chaque ligne commence par [m:ss] ou [h:mm:ss]).
+
+Produis :
+1. un résumé de 150 à 250 mots ;
+2. une mindmap de 4 à 8 sections dans l'ordre de la vidéo. Pour chaque section : un titre court, le timestamp de début (repris EXACTEMENT sous la forme "m:ss" ou "h:mm:ss" d'après les marqueurs), 2 à 4 points clés, et 1 à 3 affirmations factuelles vérifiables (pas des opinions).
+
+Écris en ${language}. Réponds UNIQUEMENT par un objet JSON valide, sans texte ni Markdown autour :
+{
+  "resume": "string",
+  "sections": [
+    {
+      "titre": "string",
+      "timestamp": "m:ss",
+      "points": ["string"],
+      "affirmations_cles": [
+        { "verbatim": "string", "normalisee": "string (autonome, cherchable)", "entites": ["string"], "verifiable": true, "type": "factuelle | statistique | causale | prediction" }
+      ]
+    }
+  ]
+}`;
+}
+
+export function videoUser(titre: string, timedText: string): string {
+  const cap = 16000;
+  const body = timedText.length > cap ? timedText.slice(0, cap) + "\n[…transcription tronquée…]" : timedText;
+  return `TITRE : ${titre}\n\nTRANSCRIPTION HORODATÉE :\n"""\n${body}\n"""`;
+}
