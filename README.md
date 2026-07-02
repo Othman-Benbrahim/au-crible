@@ -58,7 +58,19 @@ En bref : `npm ci` puis `npm run build` (ou `bash build.sh`).
    clé de recherche (Tavily ou Exa).
 5. Sur un article → **Passer au crible** → puis « Vérifier les sources » sur une affirmation.
 
+
+## Mode vidéo YouTube
+
+Sur une page `/watch`, le mode **Vidéo** récupère les sous-titres horodatés, produit
+via l'IA un **transcript propre**, un **résumé** et une **mindmap** dont chaque nœud
+est horodaté. Clique un titre → la vidéo saute au passage (seek). Bouton **« Vérifier
+cette section »** → ancrage par nœud (réutilise le pipeline Tavily/Exa). Export de la
+note complète en **Markdown** (`.md`). Le transcript est nettoyé par tronçons pour
+tenir quelle que soit la durée.
+
 ## Limites assumées
+
+- Mode vidéo : dépend des sous-titres YouTube (`ytInitialPlayerResponse`) ; si YouTube change sa page, l'acquisition peut casser. Sans sous-titres, pas d'analyse.
 
 - L'indépendance par Jaccard attrape le verbatim / quasi-verbatim, **pas** la
   reformulation d'une même dépêche ni une source amont commune non citée. D'où

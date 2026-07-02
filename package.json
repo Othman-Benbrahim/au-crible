@@ -1,6 +1,6 @@
 {
   "name": "au-crible",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Au Crible — lecture critique zététique des pages web (extension Firefox).",
   "type": "module",
   "scripts": {
