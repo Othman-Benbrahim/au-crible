@@ -1,15 +1,19 @@
 {
   "manifest_version": 3,
   "name": "Au Crible — lecture critique",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Passe au crible l'article que tu lis : structure de l'argument, effets rhétoriques, solidité calibrée et points à vérifier. Méthode zététique. Jamais de verdict.",
   "browser_specific_settings": {
     "gecko": {
       "id": "au-crible@azrivo",
       "strict_min_version": "140.0",
       "data_collection_permissions": {
-        "required": ["websiteContent"],
-        "optional": ["searchTerms"]
+        "required": [
+          "websiteContent"
+        ],
+        "optional": [
+          "searchTerms"
+        ]
       }
     },
     "gecko_android": {

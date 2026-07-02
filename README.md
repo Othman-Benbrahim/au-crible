@@ -12,7 +12,10 @@ par l'indépendance** des sources.
 Tout tourne côté client, en BYOK (tu apportes tes clés). Deux clés, deux coûts qui
 te sont étrangers :
 - **LLM** (analyse + classification) : endpoint compatible OpenAI.
-- **Recherche** (ancrage V2) : Tavily, palier gratuit ~1000 requêtes/mois sans carte.
+- **Recherche** (ancrage V2) : **Tavily ou Exa** (au choix, jamais les deux) —
+  chacun avec un palier gratuit ~1000 requêtes/mois sans carte. Tavily = extraits
+  courts et factuels ; Exa = recherche neuronale, textes plus longs. Les requêtes de
+  réfutation sont adaptées à chaque moteur.
 
 Tu n'héberges rien, tu ne paies rien, rien ne transite par un serveur intermédiaire.
 
@@ -24,7 +27,7 @@ Un **seul** appel LLM ajouté au-delà de la V1 ; tout le reste est du JS déter
 |------|----|------|
 | 1. Affirmations cherchables | LLM (appel V1 étendu) | `verbatim` + `normalisee` + entités + `verifiable` |
 | 2. Requêtes adversariales | JS (gabarits) | confirmation **et** réfutation **et** source primaire |
-| 3. Récupération | Tavily | candidats tagués par intention, dédoublonnés |
+| 3. Récupération | Tavily **ou** Exa | candidats tagués par intention, dédoublonnés |
 | 4. Indépendance | JS déterministe | trigrammes + Jaccard + `eTLD+1` → **voix** (pas URL) |
 | 5. Classification | LLM (1 appel groupé) | position / type de preuve / primaire / parti pris / confiance |
 | 6. Crédibilité | JS | poids par **signaux** (facettes Broch), jamais par réputation média |
@@ -38,8 +41,13 @@ JS pur, sans réseau ni LLM — donc testables hors-ligne.
 
 - **Jaccard** (défaut 0.5) : seuil de quasi-doublon. Plus haut = rate des reprises ;
   plus bas = fusionne à tort des sources distinctes. À ajuster sur de vrais résultats.
-- **Affirmations ancrables max** (défaut 3) : borne le quota Tavily
+- **Affirmations ancrables max** (défaut 3) : borne le quota du moteur
   (~3 requêtes/affirmation → ~110 analyses ancrées/mois sur le palier gratuit).
+
+## Compilation
+
+Voir **BUILD.md** pour les instructions complètes de compilation (revue AMO).
+En bref : `npm ci` puis `npm run build` (ou `bash build.sh`).
 
 ## Charger dans Firefox
 
@@ -47,7 +55,7 @@ JS pur, sans réseau ni LLM — donc testables hors-ligne.
 2. `about:debugging#/runtime/this-firefox` → **Charger un module temporaire** → `dist/manifest.json`.
 3. Clique l'icône **Au Crible** (ouvre le panneau, autorise la page).
 4. **Réglages** : clé LLM (Groq / Google AI Studio / OpenRouter) ; et, pour l'ancrage,
-   clé Tavily.
+   clé de recherche (Tavily ou Exa).
 5. Sur un article → **Passer au crible** → puis « Vérifier les sources » sur une affirmation.
 
 ## Limites assumées
